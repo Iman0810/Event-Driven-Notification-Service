@@ -1,0 +1,26 @@
+package com.example.Notification_service.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class NotificationRequest {
+
+    private UUID notificationId;
+
+    private String userId;
+
+    private String channel;
+
+    private String message;
+
+    private String priority;
+
+    private LocalDateTime createdAt;
+}
