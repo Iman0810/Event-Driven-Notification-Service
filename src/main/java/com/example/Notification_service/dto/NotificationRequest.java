@@ -23,4 +23,6 @@ public class NotificationRequest {
     private String priority;
 
     private LocalDateTime createdAt;
+
+    private Integer retryCount;
 }

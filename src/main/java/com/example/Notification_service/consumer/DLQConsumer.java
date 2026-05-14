@@ -9,9 +9,14 @@ import org.springframework.stereotype.Service;
 public class DLQConsumer {
 
     @RabbitListener(queues = RabbitMQConfig.DLQ_QUEUE)
-    public void receiveFailedMessages(String message) {
+    public void receiveFailedMessages(
+            NotificationRequest request
+    ) {
 
-        System.out.println("DLQ RECEIVED FAILED MESSAGE:");
-        System.out.println(message);
+        System.out.println(
+                "DLQ RECEIVED FAILED NOTIFICATION"
+        );
+
+        System.out.println(request);
     }
 }
