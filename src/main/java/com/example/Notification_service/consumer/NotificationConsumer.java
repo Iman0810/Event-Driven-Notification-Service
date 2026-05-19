@@ -1,5 +1,7 @@
 package com.example.Notification_service.consumer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
@@ -22,7 +24,8 @@ public class NotificationConsumer {
     private final NotificationMapper mapper;
     private final NotificationProcessorFactory processorFactory;
 
-
+    private static final Logger logger =
+        LoggerFactory.getLogger(NotificationConsumer.class);
 
     @RabbitListener(queues = RabbitMQConfig.MAIN_QUEUE)
     public void consumeMessage(NotificationRequest request) {
