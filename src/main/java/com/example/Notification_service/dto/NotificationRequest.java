@@ -24,5 +24,5 @@ public class NotificationRequest {
 
     private LocalDateTime createdAt;
 
-    private Integer retryCount;
+    private Integer retryCount =0;
 }
