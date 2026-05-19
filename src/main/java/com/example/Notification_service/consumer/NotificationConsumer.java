@@ -9,6 +9,7 @@ import com.example.Notification_service.dto.NotificationRequest;
 import com.example.Notification_service.model.NotificationStatus;
 import com.example.Notification_service.repository.NotificationRepository;
 import com.example.Notification_service.service.NotificationMapper;
+import com.example.Notification_service.service.NotificationProcessorFactory;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,6 +20,7 @@ public class NotificationConsumer {
     private final RabbitTemplate rabbitTemplate;
     private final NotificationRepository repository;
     private final NotificationMapper mapper;
+    private final NotificationProcessorFactory processorFactory;
 
 
 
@@ -38,16 +40,8 @@ public class NotificationConsumer {
 
         try {
 
-            // simulate failure
-            if (request.getMessage().contains("fail")) {
-
-                throw new RuntimeException("Simulated processing failure");
-            }
-
-            System.out.println(
-                    request.getChannel()
-                            + " notification sent successfully"
-            );
+            processorFactory.getProcessor(request.getChannel())
+                        .process(request);
 
             /*
              * SAVE AS SUCCESS
