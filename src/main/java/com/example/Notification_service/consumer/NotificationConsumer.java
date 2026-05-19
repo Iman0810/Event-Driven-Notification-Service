@@ -1,16 +1,16 @@
 package com.example.Notification_service.consumer;
 
-import com.example.Notification_service.config.RabbitMQConfig;
-import com.example.Notification_service.dto.NotificationRequest;
-import com.example.Notification_service.repository.NotificationRepository;
-import com.example.Notification_service.service.NotificationMapper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
+
+import com.example.Notification_service.config.RabbitMQConfig;
+import com.example.Notification_service.dto.NotificationRequest;
 import com.example.Notification_service.model.NotificationStatus;
 import com.example.Notification_service.repository.NotificationRepository;
 import com.example.Notification_service.service.NotificationMapper;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -59,7 +59,7 @@ public class NotificationConsumer {
                     )
             );
 
-        } catch (Exception ex) {
+        } catch (RuntimeException ex) {
 
             if (request.getRetryCount() == null) {
                 request.setRetryCount(0);
