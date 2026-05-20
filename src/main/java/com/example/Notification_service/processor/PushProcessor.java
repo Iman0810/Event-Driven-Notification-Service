@@ -1,5 +1,7 @@
 package com.example.Notification_service.processor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.example.Notification_service.dto.NotificationRequest;
@@ -11,20 +13,21 @@ public class PushProcessor implements NotificationProcessor{
     public String getChannelType() {
         return "PUSH";
     }
+    private static final Logger logger =
+        LoggerFactory.getLogger(PushProcessor.class);
 
     @Override
     public void process(NotificationRequest request){
 
-        System.out.println(
-            "Sending Push notification to the user: " 
-            + request.getUserId()
-        );
+       logger.info("[correlationId={}] Sending PUSH notification to user {}",
+        request.getCorrelationId(),
+        request.getUserId());    
 
         if(request.getMessage().contains("fail")){
             throw new RuntimeException("Push notification sending failed");
         }
 
-        System.out.println("Push notification sent successfully");
+        logger.info("[correlationId={}] PUSH notification sent successfully", request.getCorrelationId(), request.getUserId());
     }
     
 }

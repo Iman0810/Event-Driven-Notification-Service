@@ -12,9 +12,9 @@ import com.example.Notification_service.model.NotificationStatus;
 import com.example.Notification_service.repository.NotificationRepository;
 import com.example.Notification_service.service.NotificationMapper;
 import com.example.Notification_service.service.NotificationProcessorFactory;
+import com.example.Notification_service.util.LogUtil;
 
 import lombok.RequiredArgsConstructor;
-
 @Service
 @RequiredArgsConstructor
 public class NotificationConsumer {
@@ -37,9 +37,11 @@ public class NotificationConsumer {
                 )
         );
 
-
-        System.out.println("Processing notification: "
-                + request.getNotificationId());
+        LogUtil.log(
+                logger,
+                request.getCorrelationId().toString(),
+                "Processing notification: " + request.getNotificationId()
+        );
 
         try {
 
@@ -57,6 +59,12 @@ public class NotificationConsumer {
             );
 
         } catch (RuntimeException ex) {
+
+                logger.error(
+    "[correlationId={}] Notification processing failed: {}",
+    request.getCorrelationId(),
+    ex.getMessage()
+);
 
             if (request.getRetryCount() == null) {
                 request.setRetryCount(0);
@@ -78,19 +86,22 @@ public class NotificationConsumer {
             );
 
 
-            System.out.println(
-                    "Retry attempt: "
-                            + request.getRetryCount()
-            );
-
+                logger.warn(
+    "[correlationId={}] Retry count for notification {}: {}",
+    request.getCorrelationId(),
+    request.getNotificationId(),
+    request.getRetryCount()
+);
             /*
              * max retry = 3
              */
             if (request.getRetryCount() >= 3) {
 
-                System.out.println(
-                        "Sending message to DLQ..."
-                );
+                logger.error(
+    "[correlationId={}] Max retry attempts reached for notification: {}",
+    request.getCorrelationId(),
+    request.getNotificationId()
+);
                 /*
                  * SAVE AS FAILED
                  */
