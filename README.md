@@ -86,6 +86,7 @@ Response:
 
 ```bash
 ./mvnw clean package
+```
 
 2. Start everything (App + RabbitMQ + PostgreSQL)
 
