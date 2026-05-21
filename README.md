@@ -84,7 +84,7 @@ Response:
 ## Running the Project (Docker)
 1. Build the project
 
-'''bash
+```bash
 ./mvnw clean package
 
 2. Start everything (App + RabbitMQ + PostgreSQL)
