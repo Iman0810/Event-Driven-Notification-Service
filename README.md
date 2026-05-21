@@ -66,20 +66,21 @@ Failure → Retry Queue → (max retries)
 POST /notifications
 
 Request Body:
-
+```bash
 {
   "userId": 123,
   "channel": "EMAIL",
   "message": "Hello, this is a test notification",
   "priority": "HIGH"
 }
-
+```
 Response:
-
+```bash
 {
   "notificationId": "60e9af48-ac2e-4903-bbac-1d8eff55c39d",
   "status": "QUEUED"
 }
+```
 
 ## Running the Project (Docker)
 1. Build the project
@@ -89,18 +90,18 @@ Response:
 ```
 
 2. Start everything (App + RabbitMQ + PostgreSQL)
-
+```bash
 docker compose up --build
-
+```
 ## Monitoring
 
 ### RabbitMQ UI:
 
 http://localhost:15672
-
+```bash
 Username: guest
 Password: guest
-
+```
 ### Spring Boot API:
 
 http://localhost:8080
