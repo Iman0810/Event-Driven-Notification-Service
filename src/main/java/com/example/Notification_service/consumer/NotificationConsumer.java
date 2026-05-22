@@ -48,9 +48,7 @@ public class NotificationConsumer {
             processorFactory.getProcessor(request.getChannel())
                         .process(request);
 
-            /*
-             * SAVE AS SUCCESS
-             */
+           
             repository.save(
                     mapper.toEntity(
                             request,
@@ -75,9 +73,7 @@ public class NotificationConsumer {
                     request.getRetryCount() + 1
             );
 
-            /*
-             * SAVE AS RETRYING
-             */
+         
             repository.save(
                     mapper.toEntity(
                             request,
@@ -92,9 +88,7 @@ public class NotificationConsumer {
     request.getNotificationId(),
     request.getRetryCount()
 );
-            /*
-             * max retry = 3
-             */
+          
             if (request.getRetryCount() >= 3) {
 
                 logger.error(
@@ -102,9 +96,7 @@ public class NotificationConsumer {
     request.getCorrelationId(),
     request.getNotificationId()
 );
-                /*
-                 * SAVE AS FAILED
-                 */
+                
                 repository.save(
                         mapper.toEntity(
                                 request,
@@ -120,9 +112,7 @@ public class NotificationConsumer {
                 return;
             }
 
-            /*
-             * send to retry queue
-             */
+        
             rabbitTemplate.convertAndSend(
                     RabbitMQConfig.RETRY_QUEUE,
                     request
