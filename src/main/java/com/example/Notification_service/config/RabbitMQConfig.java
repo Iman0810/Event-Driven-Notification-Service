@@ -1,6 +1,7 @@
 package com.example.Notification_service.config;
 
-import org.springframework.amqp.core.*;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.amqp.support.converter.JacksonJsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
@@ -15,9 +16,7 @@ public class RabbitMQConfig {
 
     public static final String DLQ_QUEUE = "notification.dlq";
 
-    /*
-     * MAIN QUEUE
-     */
+    //Main queue
     @Bean
     public Queue mainQueue() {
 
@@ -27,9 +26,7 @@ public class RabbitMQConfig {
                 .build();
     }
 
-    /*
-     * RETRY QUEUE
-     */
+    //retry queue
     @Bean
     public Queue retryQueue() {
 
@@ -45,9 +42,7 @@ public class RabbitMQConfig {
                 .build();
     }
 
-    /*
-     * DEAD LETTER QUEUE
-     */
+    // dead letter queue
     @Bean
     public Queue deadLetterQueue() {
         return QueueBuilder.durable(DLQ_QUEUE).build();
