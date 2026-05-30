@@ -22,7 +22,7 @@ public class NotificationRequest {
 
     private String message;
 
-    private String priority;
+    private Priority priority;
 
     private LocalDateTime createdAt;
 
