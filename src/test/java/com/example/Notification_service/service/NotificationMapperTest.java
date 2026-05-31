@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import com.example.Notification_service.dto.NotificationRequest;
+import com.example.Notification_service.dto.Priority;
 import com.example.Notification_service.model.NotificationEntity;
 import com.example.Notification_service.model.NotificationStatus;
 
@@ -26,7 +27,7 @@ class NotificationMapperTest {
         request.setUserId("123");
         request.setChannel("EMAIL");
         request.setMessage("Hello World");
-        request.setPriority("HIGH");
+        request.setPriority(Priority.HIGH);
         request.setCreatedAt(LocalDateTime.now());
         request.setRetryCount(2);
 
